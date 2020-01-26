@@ -1,16 +1,16 @@
 {
   "info": {
-    "name": "test"
+    "name": "Institution Type"
   },
   "options": {
     "increments": true,
     "timestamps": true
   },
   "attributes": {
-    "testtest": {
+    "name": {
       "type": "string"
     }
   },
   "connection": "default",
-  "collectionName": "tests"
+  "collectionName": "institution_types"
 }

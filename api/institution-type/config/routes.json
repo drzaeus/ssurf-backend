@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/institution-types",
+      "handler": "institution-type.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/institution-types/count",
+      "handler": "institution-type.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/institution-types/:id",
+      "handler": "institution-type.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/institution-types",
+      "handler": "institution-type.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/institution-types/:id",
+      "handler": "institution-type.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/institution-types/:id",
+      "handler": "institution-type.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

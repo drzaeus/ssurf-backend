@@ -1,0 +1,29 @@
+{
+  "connection": "default",
+  "collectionName": "institutions",
+  "info": {
+    "name": "Institution"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "abbreviation": {
+      "type": "string"
+    },
+    "articles": {
+      "collection": "article"
+    },
+    "facilities": {
+      "collection": "facility"
+    },
+    "facility": {
+      "via": "institutions",
+      "model": "facility"
+    }
+  }
+}
