@@ -70,6 +70,14 @@ type createInstitutionTypePayload {
   institutionType: InstitutionType
 }
 
+input createInstrumentInput {
+  data: InstrumentInput
+}
+
+type createInstrumentPayload {
+  instrument: Instrument
+}
+
 input createRoleInput {
   data: RoleInput
 }
@@ -140,6 +148,14 @@ type deleteInstitutionTypePayload {
   institutionType: InstitutionType
 }
 
+input deleteInstrumentInput {
+  where: InputID
+}
+
+type deleteInstrumentPayload {
+  instrument: Instrument
+}
+
 input deleteRoleInput {
   where: InputID
 }
@@ -172,8 +188,8 @@ input editCategoryInput {
 input editFacilityInput {
   name: String
   abbreviation: String
-  institutions: [ID]
   articles: [ID]
+  instruments: [ID]
 }
 
 input editFileInput {
@@ -194,11 +210,17 @@ input editInstitutionInput {
   abbreviation: String
   articles: [ID]
   facilities: [ID]
-  facility: ID
 }
 
 input editInstitutionTypeInput {
   name: String
+}
+
+input editInstrumentInput {
+  name: String
+  abbreviation: String
+  description: String
+  instrument_scientist_image: ID
 }
 
 input editRoleInput {
@@ -223,8 +245,8 @@ input editUserInput {
 type Facility {
   name: String
   abbreviation: String
-  institutions(sort: String, limit: Int, start: Int, where: JSON): [Institution]
   articles(sort: String, limit: Int, start: Int, where: JSON): [Article]
+  instruments(sort: String, limit: Int, start: Int, where: JSON): [Instrument]
   id: ID!
   created_at: DateTime!
   updated_at: DateTime!
@@ -233,8 +255,8 @@ type Facility {
 input FacilityInput {
   name: String
   abbreviation: String
-  institutions: [ID]
   articles: [ID]
+  instruments: [ID]
 }
 
 input FileInput {
@@ -257,7 +279,6 @@ input InputID {
 type Institution {
   name: String
   abbreviation: String
-  facility: Facility
   articles(sort: String, limit: Int, start: Int, where: JSON): [Article]
   facilities(sort: String, limit: Int, start: Int, where: JSON): [Facility]
   id: ID!
@@ -270,7 +291,6 @@ input InstitutionInput {
   abbreviation: String
   articles: [ID]
   facilities: [ID]
-  facility: ID
 }
 
 type InstitutionType {
@@ -284,6 +304,23 @@ input InstitutionTypeInput {
   name: String
 }
 
+type Instrument {
+  name: String
+  abbreviation: String
+  description: String
+  instrument_scientist_image: UploadFile
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+input InstrumentInput {
+  name: String
+  abbreviation: String
+  description: String
+  instrument_scientist_image: ID
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -292,7 +329,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Facility | createFacilityPayload | updateFacilityPayload | deleteFacilityPayload | InstitutionType | createInstitutionTypePayload | updateInstitutionTypePayload | deleteInstitutionTypePayload | Institution | createInstitutionPayload | updateInstitutionPayload | deleteInstitutionPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Facility | createFacilityPayload | updateFacilityPayload | deleteFacilityPayload | InstitutionType | createInstitutionTypePayload | updateInstitutionTypePayload | deleteInstitutionTypePayload | Institution | createInstitutionPayload | updateInstitutionPayload | deleteInstitutionPayload | Instrument | createInstrumentPayload | updateInstrumentPayload | deleteInstrumentPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createArticle(input: createArticleInput): createArticlePayload
@@ -310,6 +347,9 @@ type Mutation {
   createInstitution(input: createInstitutionInput): createInstitutionPayload
   updateInstitution(input: updateInstitutionInput): updateInstitutionPayload
   deleteInstitution(input: deleteInstitutionInput): deleteInstitutionPayload
+  createInstrument(input: createInstrumentInput): createInstrumentPayload
+  updateInstrument(input: updateInstrumentInput): updateInstrumentPayload
+  deleteInstrument(input: deleteInstrumentInput): deleteInstrumentPayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -345,6 +385,8 @@ type Query {
   institutionTypes(sort: String, limit: Int, start: Int, where: JSON): [InstitutionType]
   institution(id: ID!): Institution
   institutions(sort: String, limit: Int, start: Int, where: JSON): [Institution]
+  instrument(id: ID!): Instrument
+  instruments(sort: String, limit: Int, start: Int, where: JSON): [Instrument]
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   role(id: ID!): UsersPermissionsRole
 
@@ -411,6 +453,15 @@ input updateInstitutionTypeInput {
 
 type updateInstitutionTypePayload {
   institutionType: InstitutionType
+}
+
+input updateInstrumentInput {
+  where: InputID
+  data: editInstrumentInput
+}
+
+type updateInstrumentPayload {
+  instrument: Instrument
 }
 
 input updateRoleInput {

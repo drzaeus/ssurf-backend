@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "institutions",
+  "collectionName": "instruments",
   "info": {
-    "name": "Institution"
+    "name": "Instrument"
   },
   "options": {
     "increments": true,
@@ -15,11 +15,14 @@
     "abbreviation": {
       "type": "string"
     },
-    "articles": {
-      "collection": "article"
+    "description": {
+      "type": "richtext"
     },
-    "facilities": {
-      "collection": "facility"
+    "instrument_scientist_image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
     }
   }
 }
